@@ -1,13 +1,9 @@
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
 import static java.lang.Integer.min;
 
 /**
- * Palindrom created by &#x43b;&#x451;&#x43d;&#x44f; on 01.05.2017.
+ * Palindrom created by лёня on 01.05.2017.
  */
 
 public class Palindrom {
@@ -15,31 +11,20 @@ public class Palindrom {
     private static HashMap<String, String> palindromes;
 
     public static void main(String[] args) {
-//         long startTime = System.currentTimeMillis();
-        try {
-            if (args.length == 0) throw new InvalidArgumentException(args);
-//             if (!args[1].equals(">")) throw new InvalidArgumentException(args);
-            OutputStreamWriter fos = new OutputStreamWriter(new FileOutputStream(args[2]));
-            even = odd = new int[args[0].length()];
-            palindromes = new HashMap<>();
+        if (args.length != 1)
+            throw new IllegalArgumentException("Arguments are not ok");
 
-            for (int i = 0; i < even.length; i++) {
-                even[i] = odd[i] = 0;
-            }
+        even = odd = new int[args[0].length()];
+        palindromes = new HashMap<>();
 
-            evenCount(args[0]);
-            oddCount(args[0]);
-
-            fos.write(Integer.toString(palindromes.size()));
-            fos.close();
-
-//             Довольно небрежное обращение с Картой, но что поделать
-//             System.out.println(palindromes.keySet());
-//             System.out.println(System.currentTimeMillis() - startTime);
-
-        } catch (InvalidArgumentException | java.io.IOException e) {
-            e.printStackTrace();
+        for (int i = 0; i < even.length; i++) {
+            even[i] = odd[i] = 0;
         }
+
+        evenCount(args[0]);
+        oddCount(args[0]);
+
+        System.out.println(Integer.toString(palindromes.size()));
     }
 
     private static void evenCount(String s) {
